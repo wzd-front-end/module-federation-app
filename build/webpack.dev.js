@@ -6,10 +6,13 @@ module.exports = {
   devtool: 'eval-cheap-module-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, '../dist'),
+    watchContentBase: true,
     overlay: false,
     open: true,
     port: 3000,
+    hot: true,
     historyApiFallback: true,
+    publicPath: '/',
     proxy: {
       '/jf-platform-api/mng/*': {
         target: 'http://test.jiajihua.163.com:7709',
@@ -51,7 +54,7 @@ module.exports = {
     ]
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
   output: {
     filename: 'static/js/[name].js',

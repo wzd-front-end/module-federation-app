@@ -5,7 +5,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary">测试4</Button>
+        <Button type="primary">测试</Button>
       </div>
     )
   }
