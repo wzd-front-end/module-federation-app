@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require("path");
 
 module.exports = {
@@ -23,8 +24,7 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.scss$/,
         use: [
           'style-loader',
@@ -50,11 +50,24 @@ module.exports = {
           },
           'postcss-loader'
         ]
+      },
+      {
+        test: /\.(js|mjs|jsx)$/,
+        include: /src/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              require.resolve('react-refresh/babel')
+            ]
+          }
+        }]
       }
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin()
   ],
   output: {
     filename: 'static/js/[name].js',

@@ -38,6 +38,13 @@ module.exports = {
           },
           'postcss-loader'
         ]
+      },
+      {
+        test: /\.(js|mjs|jsx)$/,
+        include: /src/,
+        use: [
+          'babel-loader'
+        ]
       }
     ]
   },

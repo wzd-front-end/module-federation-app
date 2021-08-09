@@ -34,13 +34,6 @@ const commonConfig = {
             limit: 10240
           }
         }
-      },
-      {
-        test: /\.(js|mjs|jsx)$/,
-        include: /src/,
-        use: [
-          'babel-loader'
-        ]
       }
     ]
   },
