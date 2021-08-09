@@ -43,7 +43,8 @@ module.exports = {
     }
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.scss$/,
         use: [
           'style-loader',

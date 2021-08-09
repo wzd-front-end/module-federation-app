@@ -1,19 +1,17 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin= require('terser-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-source-map',
   module: {
     rules: [
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -27,9 +25,7 @@ module.exports = {
       {
         test: /\.css/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -50,8 +46,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[hash:8].css',
-      chunkFilename: 'static/css/[id].[hash:8].css'
+      filename: 'static/css/[name].[fullhash:8].css',
+      chunkFilename: 'static/css/[id].[fullhash:8].css'
     })
   ],
   optimization: {
@@ -60,7 +56,7 @@ module.exports = {
       new TerserWebpackPlugin({
         parallel: true,
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new CssMinimizerPlugin({})
     ]
   },
   output: {

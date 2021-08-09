@@ -2,15 +2,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const {merge} = require('webpack-merge');
-const devConfig = require('./webpack.dev');
-const prodConfig = require('./webpack.prod');
+
 const path = require('path');
 
 const commonConfig = {
   entry: {
     'main': './src/index.js'
   },
-  target: "web",
   resolve: {
     extensions: ['.js', '.jsx']
   },
@@ -61,8 +59,8 @@ const commonConfig = {
 
 module.exports = (env) => {
   if (env && env.production) {
-    return merge(commonConfig, prodConfig)
+    return merge(commonConfig, require('./webpack.prod'))
   } else {
-    return merge(commonConfig, devConfig)
+    return merge(commonConfig, require('./webpack.dev'))
   }
 };
