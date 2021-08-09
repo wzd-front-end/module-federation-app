@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-cli serve --config build/webpack.config.js",
-    "build": "webpack --env.production --config build/webpack.config.js"
+    "build": "webpack --env production --config build/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -39,10 +39,12 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.3",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
+    "open": "^8.2.1",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss-loader": "^6.1.1",
     "react-refresh": "^0.10.0",

@@ -1,8 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 const {merge} = require('webpack-merge');
 const devConfig = require('./webpack.dev');
 const prodConfig = require('./webpack.prod');
+const path = require('path');
 
 const commonConfig = {
   entry: {
@@ -40,6 +42,14 @@ const commonConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html"
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public'),
+          to: path.resolve(__dirname, '../dist/public')
+        }
+      ]
     }),
     new CleanWebpackPlugin(),
   ],

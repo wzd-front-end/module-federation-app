@@ -1,6 +1,25 @@
 const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require("path");
+const fs = require("fs");
+const open = require("open");
+
+let cookie = '';
+let timerId = null;
+
+if (fs.existsSync(path.resolve('./cookie.txt'))) {
+  cookie = fs.readFileSync(path.resolve('./cookie.txt'), 'utf8');
+  fs.watch(path.resolve('./cookie.txt'), function (event) {
+    if (timerId) clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      cookie = fs.readFileSync(path.resolve('./cookie.txt'), 'utf8')
+        .replace(/^[\s\n\t]+/g, "")
+        .replace(/[\s\n\t]+$/g, "");
+      open("http://localhost:3000");
+      timerId = null
+    }, 200)
+  })
+}
 
 module.exports = {
   mode: 'development',
@@ -18,7 +37,7 @@ module.exports = {
       '/jf-platform-api/mng/*': {
         target: 'http://test.jiajihua.163.com:7709',
         bypass: function (req, res) {
-          req.headers.cookie = 'JSESSIONID=' + 'F6B859922D1EF6DCF19388C2D31AAA3E';
+          req.headers.cookie = 'JSESSIONID=' + cookie;
         },
       },
     }
