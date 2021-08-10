@@ -53,7 +53,25 @@ const commonConfig = {
   ],
   optimization: {
     usedExports: true,
-
+    splitChunks: {
+      chunks: 'all',
+      maxSize: 409600,
+      cacheGroups: {
+        reactbundle: {
+          name: 'reactbundle',
+          test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom")[\\/]/,
+          priority: -10,
+          chunks: 'all',
+          enforce: true,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      }
+    }
   }
 };
 

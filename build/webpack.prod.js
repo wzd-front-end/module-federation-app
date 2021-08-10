@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserWebpackPlugin= require('terser-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[fullhash:8].css',
-      chunkFilename: 'static/css/[id].[fullhash:8].css'
+      chunkFilename: 'static/css/[name].[fullhash:8].css'
     })
   ],
   optimization: {
@@ -55,9 +55,18 @@ module.exports = {
     minimizer: [
       new TerserWebpackPlugin({
         parallel: true,
+        extractComments: false
       }),
       new CssMinimizerPlugin({})
     ]
+  },
+  performance: {
+    hints: 'warning',
+    // maxEntrypointSize: 409600,
+    maxAssetSize: 409600,
+    assetFilter: function (assetFilename) {
+      return assetFilename.endsWith('.js');
+    }
   },
   output: {
     filename: 'static/js/[name].[contenthash:8].js',
