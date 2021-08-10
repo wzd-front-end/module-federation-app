@@ -1,0 +1,48 @@
+.page {
+  height: 100vh;
+}
+
+.sider-layout {
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.sider-layout header {
+  flex: none;
+}
+
+.sider-layout main {
+  flex: 1;
+}
+
+.menu {
+  height: 100%;
+  overflow-y: auto;
+  user-select: none;
+}
+
+.main header {
+  background-color: white;
+}
+
+.main .content {
+  background: white;
+  min-height: 280px;
+  margin-top: 16px;
+  padding: 16px;
+}
+
+.project-name {
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+
+  img {
+    border-radius: 50%;
+    width: 40px;
+    margin-right: 10px;
+    margin-top: 4px;
+  }
+}

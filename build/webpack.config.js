@@ -9,6 +9,7 @@ const commonConfig = {
   entry: {
     'main': './src/index.js'
   },
+  target: 'web',
   resolve: {
     extensions: ['.js', '.jsx']
   },

@@ -1,12 +1,11 @@
 import React from 'react';
-import {Button, Calendar} from 'antd';
+import Container from "./Components/Container";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary">测11试</Button>
-        <Calendar/>
+        <Container/>
       </div>
     )
   }
