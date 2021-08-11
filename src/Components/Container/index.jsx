@@ -1,9 +1,15 @@
 import React from 'react';
 import {Layout} from "antd";
+import {Route, Switch} from 'react-router-dom'
+import SiderMenu from "../SiderMenu";
+import {routerConfig} from "../../Router";
+import {jfFederationPath} from "../../utils/common";
 import './index.scss';
 
 const {Sider, Header, Content} = Layout;
 const Container = React.memo(() => {
+
+
   return (
     <Layout className="page">
       <Sider width={260}>
@@ -17,7 +23,7 @@ const Container = React.memo(() => {
             </div>
           </Header>
           <Content>
-
+            <SiderMenu list={routerConfig}/>
           </Content>
         </Layout>
       </Sider>
@@ -26,7 +32,25 @@ const Container = React.memo(() => {
           <Header>
             <div style={{textAlign: 'right'}}>测试</div>
           </Header>
-
+          <Content>
+            <div className="content">
+              <Switch>
+                {/*<Route path={jfFederationPath} component={}/>*/}
+                {/*{routerConfig.map((firstLevel) => {*/}
+                {/*  return firstLevel.children.map((secondLevel, index) => {*/}
+                {/*    return (*/}
+                {/*      <Route*/}
+                {/*        path={firstLevel.path + secondLevel.path}*/}
+                {/*        key={firstLevel.path + secondLevel.path}*/}
+                {/*        component={}*/}
+                {/*        exact*/}
+                {/*      />*/}
+                {/*    )*/}
+                {/*  })*/}
+                {/*})}*/}
+              </Switch>
+            </div>
+          </Content>
         </Content>
       </Layout>
     </Layout>
