@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {Menu} from 'antd';
 import {useHistory, useLocation} from 'react-router-dom';
 import {
@@ -50,17 +50,27 @@ const SiderMenu = React.memo(({list = []}) => {
   const location = useLocation();
   const {pathname} = location;
 
-  const defaultOpenKeys = useMemo(() => {
-    let result = '';
+  useEffect(() => {
+    if (defaultItem[0] === '' || defaultItem[1] === '') {
+      history.replace('/')
+    }
+  }, [defaultItem]);
+
+  const defaultItem = useMemo(() => {
+    let firstOpen = '';
+    let secondOpen = '';
     list.forEach((firstLevel) => {
       firstLevel.children.forEach((secondLevel) => {
-        if (pathname === secondLevel.path + secondLevel.children[0].path) {
-          result = firstLevel.key;
+        if (pathname.includes(`${firstLevel.path}${secondLevel.path}`)) {
+          firstOpen = firstLevel.key;
+          secondOpen = `${firstLevel.path}${secondLevel.path}`
         }
       })
     });
-    return result;
-  });
+    return [firstOpen, secondOpen];
+  }, [list, pathname]);
+
+  const [defaultOpenKeys = '', defaultSelectedKeys = ''] = defaultItem;
 
   const toNext = (url) => {
     history.push(url)
@@ -68,20 +78,20 @@ const SiderMenu = React.memo(({list = []}) => {
 
   return (
     <Menu
-      defaultSelectedKeys={[pathname]}
       defaultOpenKeys={[defaultOpenKeys]}
+      defaultSelectedKeys={[defaultSelectedKeys]}
       className="menu"
       mode="inline"
       theme="dark"
     >
-      {list.map(({name, key, icon, children = []}) => {
+      {list.map(({name, path, key, icon, children = []}) => {
         const Icon = iconList[icon];
         return (
           <SubMenu key={key} icon={<Icon/>} title={name}>
             {children.map((item) => (
               <Menu.Item
-                key={item.path + item.children[0].path}
-                onClick={() => toNext(item.path + item.children[0].path)}
+                key={path + item.path}
+                onClick={() => toNext(path + item.path)}
               >
                 {item.name}
               </Menu.Item>

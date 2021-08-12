@@ -1,6 +1,9 @@
 import {message} from "antd";
 
 class request {
+  constructor(prefix) {
+    this.prefix = prefix;
+  }
 
   formatUrl = (url = '', data = {}) => {
     Object.keys(data).filter(key => (data[key] !== null && data[key] !== undefined)).forEach((key, index) => {
@@ -41,7 +44,7 @@ class request {
 
       if (type === 'query') url = this.formatUrl(url, data);
 
-      const response = await fetch(url, config);
+      const response = await fetch(`${this.prefix}${url}`, config);
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -63,8 +66,8 @@ class request {
   }
 }
 
-const createRequest = () => {
-  return new request()
+const createRequest = (prefix = '') => {
+  return new request(prefix)
 };
 
 export default createRequest

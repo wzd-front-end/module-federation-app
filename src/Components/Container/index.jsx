@@ -1,15 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Layout} from "antd";
 import {Route, Switch} from 'react-router-dom'
 import SiderMenu from "../SiderMenu";
 import {routerConfig} from "../../Router";
 import {jfFederationPath} from "../../utils/common";
+import {getUserList} from "../../Data/jfMallPlatformApi";
 import './index.scss';
 
 const {Sider, Header, Content} = Layout;
 const Container = React.memo(() => {
+  const [menus, setMenus] = useState([]);
 
-
+  useEffect(() => {
+    const fetchData = async () => {
+      // 获取菜单权限列表
+      const {data = []} = await getUserList();
+      const menuList = [];
+      routerConfig.forEach((item) => {
+        const menuItem = data.find((target) => {
+          return target.name === item.name
+        });
+        if (menuItem) {
+          const children = item.children.filter((child) => {
+            return menuItem.children.find((childSon) => childSon.name === child.name);
+          });
+          if (children.length > 0) {
+            menuList.push({
+              ...item,
+              children,
+            })
+          }
+        }
+      });
+      setMenus(menuList)
+    };
+    fetchData();
+  }, []);
   return (
     <Layout className="page">
       <Sider width={260}>
@@ -23,7 +49,7 @@ const Container = React.memo(() => {
             </div>
           </Header>
           <Content>
-            <SiderMenu list={routerConfig}/>
+            {menus.length !== 0 && <SiderMenu list={menus}/>}
           </Content>
         </Layout>
       </Sider>
