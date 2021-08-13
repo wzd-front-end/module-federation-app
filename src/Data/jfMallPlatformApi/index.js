@@ -8,3 +8,9 @@ export const getUserList = () => {
   })
 };
 
+export const postLogin = () => {
+  return request.post({
+    url: '/login'
+  })
+};
+

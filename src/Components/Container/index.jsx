@@ -8,7 +8,7 @@ import {getUserList} from "../../Data/jfMallPlatformApi";
 import './index.scss';
 
 const {Sider, Header, Content} = Layout;
-const Container = React.memo(() => {
+const Container = React.memo(({userName}) => {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Container = React.memo(() => {
       <Layout className="main">
         <Content>
           <Header>
-            <div style={{textAlign: 'right'}}>测试</div>
+            <div style={{textAlign: 'right'}}>{userName}</div>
           </Header>
           <Content>
             <div className="content">
