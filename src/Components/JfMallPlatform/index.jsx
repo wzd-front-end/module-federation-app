@@ -8,7 +8,18 @@ class JfMallPlatform extends React.Component {
 
   }
 
-  componentWillUpdate(nextProps, nextState, nextContext) {
-    this.history.push(window.location.pathname.replace(jfFederationPath, ''))
+  // componentWillUpdate(nextProps, nextState, nextContext) {
+  //   // this.history.push(window.location.pathname.replace(jfFederationPath, ''))
+  // }
+  render() {
+    return (
+      <div>
+        <div id="alert"/>
+        <div id="confirm"/>
+        <div id="content"/>
+      </div>
+    )
   }
 }
+
+export default JfMallPlatform
