@@ -28,7 +28,8 @@
 
 .main .content {
   background: white;
-  min-height: 280px;
+  height: calc(100vh - 96px);
+  overflow: auto;
   margin: 16px;
   padding: 16px;
 }

@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const Mfp = require('webpack').container.ModuleFederationPlugin;
 const {merge} = require('webpack-merge');
 
 const path = require('path');
@@ -41,6 +42,25 @@ const commonConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html"
+    }),
+    new Mfp({
+      name: 'jfPlatformUiPro',
+      remotes: {
+        jfPlatformUi: 'jfPlatformUi@http://localhost:8083/jfPlatformUi.js'
+      },
+      shared: {
+        react: {
+          eager: true,
+          import: "react", // the "react" package will be used a provided and fallback module
+          shareKey: "react", // under this name the shared module will be placed in the share scope
+          shareScope: "default", // share scope with this name will be used
+          singleton: true, // only a single version of the shared module is allowed
+        },
+        "react-dom": {
+          eager: true,
+          singleton: true, // only a single version of the shared module is allowed
+        },
+      },
     }),
     new CopyPlugin({
       patterns: [

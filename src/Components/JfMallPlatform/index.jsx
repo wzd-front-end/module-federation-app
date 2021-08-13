@@ -5,15 +5,20 @@ class JfMallPlatform extends React.Component {
   history = null;
 
   componentDidMount() {
-
+    import('jfPlatformUi/Base/StorePage').then(res => {
+      this.history = res.default();
+    })
   }
 
-  // componentWillUpdate(nextProps, nextState, nextContext) {
-  //   // this.history.push(window.location.pathname.replace(jfFederationPath, ''))
-  // }
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    if (this.history) {
+      this.history.push(window.location.pathname.replace(jfFederationPath, ''))
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div className="content">
         <div id="alert"/>
         <div id="confirm"/>
         <div id="content"/>

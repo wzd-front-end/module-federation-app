@@ -16,9 +16,9 @@ const App = () => {
       try {
         const {data = {}} = await postLogin();
 
-        if (data.authUrl) {
+        if (data.auth_url) {
           // 未登录状态
-          window.location.href = data.authUrl;
+          window.location.href = data.auth_url;
         } else if (data.right === 1) {
           // 登录成功
           message.info(`欢迎回来，${data.userName}`);
