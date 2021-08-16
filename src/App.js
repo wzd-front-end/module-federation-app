@@ -24,6 +24,7 @@ const App = () => {
           message.info(`欢迎回来，${data.userName}`);
           setStatus('Success');
           setUserName(data.userName);
+          renderWatermark(data.userName);
         } else {
           // 暂无权限登录
           setStatus('NoPower')
@@ -35,6 +36,44 @@ const App = () => {
     };
     fetchData();
   }, []);
+
+  const renderWatermark = (acountName) => {
+    const style = document.getElementById('jf-wm-style');
+    style.innerHTML = `
+      .water-mark-item {
+        position:absolute;
+        z-index:99999;
+        font-size:20px;
+        color:#000;
+        opacity:0.08;
+        filter:alpha(opacity=8);
+        pointer-events:none;
+        -webkit-transform:rotate(-15deg);
+        -moz-transform:rotate(-15deg);
+        -o-transform:rotate(-15deg);
+        -ms-transform:rotate(-15deg);
+        transform:rotate(-15deg);
+        max-width:250px;
+        word-wrap:break-word;
+      }
+      .water-mark-item::before{
+        content: '${acountName}'
+      }
+    `;
+
+    document.getElementById('watermark-container').style.display = 'none';
+    document.getElementById('watermark-container').innerHTML = '';
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 6; j++) {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('water-mark-item');
+        itemElement.style.left = `${i * 25}%`;
+        itemElement.style.top = `${j * 16.7}%`;
+        document.getElementById('watermark-container').appendChild(itemElement)
+      }
+    }
+    document.getElementById('watermark-container').style.display = 'block'
+  };
 
   const renderContent = () => {
     const antIcon = <SyncOutlined style={{fontSize: 50}} spin/>;
