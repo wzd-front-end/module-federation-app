@@ -82,7 +82,7 @@ const App = () => {
       case 'Logging':
         return (
           <div className="loadling-block">
-            <Spin size="large" indicator={antIcon} tip="加载中..."/>
+            <Spin size="large" indicator={antIcon} tip="登录中..."/>
           </div>
         );
       case 'LoggingError':
